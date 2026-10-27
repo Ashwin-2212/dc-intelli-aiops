@@ -1,0 +1,165 @@
+import { AuthUser, RoleCardConfig, RoleType } from './types';
+
+export interface DemoAccount {
+  user: AuthUser;
+  password: string;
+}
+
+export const DEMO_ACCOUNTS: Record<RoleType, DemoAccount> = {
+  ADMIN: {
+    user: {
+      id: 'USR-ADM-001',
+      name: 'Ashwin T',
+      email: 'admin@dcintelli.local',
+      role: 'ADMIN',
+      title: 'Principal Infrastructure Architect & Global Admin',
+      department: 'Enterprise Infrastructure Systems',
+      avatar: '👑',
+    },
+    password: 'Admin@123',
+  },
+  MANAGER: {
+    user: {
+      id: 'USR-MGR-002',
+      name: 'Sarah Chen',
+      email: 'manager@dcintelli.local',
+      role: 'MANAGER',
+      title: 'Data Center Operations Director',
+      department: 'Facilities & Capacity Management',
+      avatar: '🏢',
+    },
+    password: 'Manager@123',
+  },
+  ENGINEER: {
+    user: {
+      id: 'USR-ENG-003',
+      name: 'Marcus Vance',
+      email: 'engineer@dcintelli.local',
+      role: 'ENGINEER',
+      title: 'Lead Site Reliability & Electrical Engineer',
+      department: 'Mission Critical Operations',
+      avatar: '⚡',
+    },
+    password: 'Engineer@123',
+  },
+  ANALYST: {
+    user: {
+      id: 'USR-ANA-004',
+      name: 'Dr. Elena Rostova',
+      email: 'analyst@dcintelli.local',
+      role: 'ANALYST',
+      title: 'Senior AIOps & Predictive Analytics Specialist',
+      department: 'AI Intelligence & Thermal Modeling',
+      avatar: '🧠',
+    },
+    password: 'Analyst@123',
+  },
+};
+
+export const ROLE_CONFIGS: Record<RoleType, RoleCardConfig> = {
+  ADMIN: {
+    id: 'ADMIN',
+    title: 'Administrator',
+    subtitle: 'Full platform access',
+    description: 'User governance, infra provisioning, system settings, telemetry & security policies.',
+    responsibilities: [
+      'Full platform access',
+      'User management',
+      'Infrastructure management',
+      'Site/server/rack management',
+      'System configuration',
+      'Security/audit access',
+      'Telemetry monitoring',
+      'Incident management',
+      'AI/RCA',
+      'Predictive maintenance',
+      'Capacity planning',
+      'Reports',
+    ],
+    defaultRoute: '/admin',
+    defaultView: 'super-admin',
+    color: {
+      badge: 'bg-purple-950/80 text-purple-300 border-purple-600',
+      border: 'border-purple-500/50',
+      accent: 'text-purple-400',
+      glow: 'shadow-purple-500/20',
+    },
+  },
+  MANAGER: {
+    id: 'MANAGER',
+    title: 'Data Center Manager',
+    subtitle: 'Infrastructure & capacity',
+    description: 'High-level facility health, PUE, energy budgeting, what-if planning & executive reports.',
+    responsibilities: [
+      'Monitor data-center health',
+      'View sites/racks/servers',
+      'Capacity planning',
+      'Energy/power monitoring',
+      'Cooling monitoring',
+      'Incident overview',
+      'Reports',
+      'AI insights',
+      'What-if simulations',
+    ],
+    restrictedItems: ['User administration', 'Critical system configuration'],
+    defaultRoute: '/manager',
+    defaultView: 'manager-cockpit',
+    color: {
+      badge: 'bg-blue-950/80 text-blue-300 border-blue-600',
+      border: 'border-blue-500/50',
+      accent: 'text-blue-400',
+      glow: 'shadow-blue-500/20',
+    },
+  },
+  ENGINEER: {
+    id: 'ENGINEER',
+    title: 'Operations Engineer',
+    subtitle: 'Live operations & incidents',
+    description: 'Hardware diagnostics, real-time telemetry streams, rack thermals, UPS & work orders.',
+    responsibilities: [
+      'Live telemetry',
+      'Server health',
+      'Rack monitoring',
+      'Cooling monitoring',
+      'UPS/power monitoring',
+      'Alerts',
+      'Incidents',
+      'Root-cause investigation',
+      'Maintenance/work orders',
+    ],
+    defaultRoute: '/operations',
+    defaultView: 'engineer-diag',
+    color: {
+      badge: 'bg-emerald-950/80 text-emerald-300 border-emerald-600',
+      border: 'border-emerald-500/50',
+      accent: 'text-emerald-400',
+      glow: 'shadow-emerald-500/20',
+    },
+  },
+  ANALYST: {
+    id: 'ANALYST',
+    title: 'AI / Analytics Analyst',
+    subtitle: 'AI insights & predictions',
+    description: 'Anomaly detection radar, multi-metric correlation, failure prediction & energy analytics.',
+    responsibilities: [
+      'Anomaly detection',
+      'AI insights',
+      'Root-cause analysis',
+      'Failure prediction',
+      'Predictive maintenance',
+      'Historical telemetry analysis',
+      'Capacity analytics',
+      'Energy analytics',
+      'What-if analysis',
+      'Reports',
+    ],
+    defaultRoute: '/analytics',
+    defaultView: 'anomalies',
+    color: {
+      badge: 'bg-amber-950/80 text-amber-300 border-amber-600',
+      border: 'border-amber-500/50',
+      accent: 'text-amber-400',
+      glow: 'shadow-amber-500/20',
+    },
+  },
+};

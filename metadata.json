@@ -1,0 +1,6 @@
+{
+  "name": "DC-Intelli - AI Data Center Observability & Capacity Planning",
+  "description": "Enterprise AI-powered data center observability, real-time telemetry, predictive maintenance, root-cause analysis, digital twin, energy optimization, and capacity forecasting.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
