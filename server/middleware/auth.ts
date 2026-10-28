@@ -18,12 +18,16 @@ declare global {
 }
 
 const JWT_SECRET = process.env.JWT_SECRET || 'dc_intelli_aiops_super_secure_jwt_secret_2026_xyz';
-const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || '24h';
+// Default to 365 days (1 year) long-term session so users do not need to specify JWT_EXPIRES_IN
+const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || '365d';
 
 /**
  * Signs a cryptographic JWT token for authenticated users.
  */
 export function generateToken(payload: AuthenticatedUser): string {
+  if (process.env.JWT_EXPIRES_IN === 'never' || process.env.JWT_EXPIRES_IN === 'none') {
+    return jwt.sign(payload, JWT_SECRET);
+  }
   return jwt.sign(payload, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN as any });
 }
 

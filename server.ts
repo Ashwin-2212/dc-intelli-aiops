@@ -1,5 +1,6 @@
 import express from 'express';
 import path from 'path';
+import fs from 'fs';
 import { GoogleGenAI } from '@google/genai';
 import dotenv from 'dotenv';
 import { createServer as createViteServer } from 'vite';
@@ -273,14 +274,17 @@ async function startServer() {
     }
   }
 
-  if (process.env.NODE_ENV !== 'production') {
+  const isProduction = process.env.NODE_ENV === 'production' || Boolean(process.env.RENDER);
+  if (!isProduction) {
     const vite = await createViteServer({
       server: { middlewareMode: true },
       appType: 'spa',
     });
     app.use(vite.middlewares);
   } else {
-    const distPath = path.join(process.cwd(), 'dist');
+    const rootDist = path.join(process.cwd(), 'dist');
+    const distPath = fs.existsSync(path.join(rootDist, 'index.html')) ? rootDist : __dirname;
+    console.log(`[Production Serving] Static assets directory: ${distPath}`);
     app.use(express.static(distPath));
     app.get('*', (_req, res) => {
       res.sendFile(path.join(distPath, 'index.html'));

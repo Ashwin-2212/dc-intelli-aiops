@@ -1,7 +1,15 @@
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+import dns from 'dns';
 
 dotenv.config();
+
+// Ensure SRV DNS resolution succeeds on Windows/ISPs where the local resolver rejects SRV records
+try {
+  dns.setServers(['8.8.8.8', '1.1.1.1', '8.8.4.4']);
+} catch {
+  // Fall back to default system resolver if setting custom servers fails
+}
 
 export type DbConnectionState = 'disconnected' | 'connected' | 'connecting' | 'disconnecting' | 'uninitialized';
 
@@ -71,13 +79,20 @@ export function getDatabaseHealth(): DatabaseHealthInfo {
  * Centralized MongoDB Connection Manager with auto-reconnection and error handling.
  */
 export async function connectDatabase(): Promise<boolean> {
-  const uri = process.env.MONGODB_URI;
+  let uri = process.env.MONGODB_URI || process.env.MONGODB_URL;
 
   if (!uri) {
-    const errorMsg = 'MONGODB_URI environment variable is not defined.';
+    const errorMsg = 'Neither MONGODB_URI nor MONGODB_URL environment variable is defined.';
     lastConnectionError = errorMsg;
     console.warn(`[Database Warning] ${errorMsg} MongoDB persistence is disabled.`);
     return false;
+  }
+
+  // Normalize URI if user provided URL without database name
+  if (uri.endsWith('/')) {
+    uri = `${uri}data_center_aiops?retryWrites=true&w=majority`;
+  } else if (!uri.slice(uri.indexOf('//') + 2).includes('/')) {
+    uri = `${uri}/data_center_aiops?retryWrites=true&w=majority`;
   }
 
   // Avoid creating redundant connections if already connected or connecting
@@ -122,7 +137,7 @@ export async function connectDatabase(): Promise<boolean> {
     console.log(`[Database] Connecting to MongoDB: ${sanitizedUri}...`);
 
     await mongoose.connect(uri, {
-      serverSelectionTimeoutMS: 5000,
+      serverSelectionTimeoutMS: 15000,
       socketTimeoutMS: 45000,
       maxPoolSize: 20,
       minPoolSize: 2,
