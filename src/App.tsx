@@ -279,7 +279,7 @@ function MainAppContent() {
         )}
 
         {/* Scrollable View Container */}
-        <main className="flex-1 overflow-y-auto p-6 custom-scrollbar">
+        <main className="flex-1 overflow-y-auto p-6 custom-scrollbar cyber-bg">
           <div className="max-w-7xl mx-auto space-y-6">
             {!isAuthorizedForView ? (
               <AccessDenied

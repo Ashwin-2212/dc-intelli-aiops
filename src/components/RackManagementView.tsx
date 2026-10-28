@@ -57,10 +57,11 @@ export const RackManagementView: React.FC<RackManagementViewProps> = ({
   return (
     <div className="space-y-6 animate-fade-in">
       {/* Header & Rack Selector */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-[#0a0a0a] border border-zinc-800 p-5 rounded-2xl">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 glass-panel border border-white/[0.08] p-6 rounded-3xl shadow-[0_10px_35px_rgba(0,0,0,0.5)]">
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="text-xl font-bold text-white font-mono">
+            <h1 className="text-xl font-bold text-white font-mono flex items-center gap-2">
+              <Boxes className="w-5 h-5 text-orange-400" />
               42U Enterprise Rack Elevation
             </h1>
             <span
@@ -103,8 +104,8 @@ export const RackManagementView: React.FC<RackManagementViewProps> = ({
       {/* Main Grid: 42U Elevation + Rack Stats & Detail Drawer */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         {/* Left 6 Cols: 42U Chassis Elevation Frame */}
-        <div className="lg:col-span-6 bg-[#08080a] border border-zinc-800 rounded-2xl p-5 shadow-2xl">
-          <div className="flex items-center justify-between pb-3 border-b border-zinc-800 text-xs font-mono text-zinc-400">
+        <div className="lg:col-span-6 glass-panel border border-white/[0.08] rounded-3xl p-6 shadow-2xl">
+          <div className="flex items-center justify-between pb-3 border-b border-white/[0.08] text-xs font-mono text-zinc-400">
             <span className="text-white font-bold">{currentRack.id} FRONT ELEVATION</span>
             <span>42U EIA-310 Standard</span>
           </div>
@@ -207,28 +208,29 @@ export const RackManagementView: React.FC<RackManagementViewProps> = ({
         {/* Right 6 Cols: Rack Telemetry Stats & Server Inspector */}
         <div className="lg:col-span-6 space-y-6">
           {/* Rack Telemetry Card */}
-          <div className="bg-[#0a0a0a] border border-zinc-800 rounded-2xl p-5 space-y-4">
-            <h3 className="text-sm font-bold font-mono text-white uppercase tracking-wider">
+          <div className="glass-panel border border-white/[0.08] rounded-3xl p-6 space-y-4 shadow-xl">
+            <h3 className="text-sm font-bold font-mono text-white uppercase tracking-wider flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-orange-400" />
               {currentRack.name} Health & Power
             </h3>
 
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 font-mono text-xs">
-              <div className="p-3 bg-zinc-900 border border-zinc-800 rounded-xl">
+              <div className="p-3 bg-white/[0.02] border border-white/[0.06] rounded-2xl">
                 <span className="text-zinc-500 text-[10px] uppercase">Inlet Cold Temp</span>
                 <div className="text-base font-bold text-white mt-1">{currentRack.inletTempC}°C</div>
                 <span className="text-[10px] text-emerald-400">Target &lt; 24°C</span>
               </div>
-              <div className="p-3 bg-zinc-900 border border-zinc-800 rounded-xl">
+              <div className="p-3 bg-white/[0.02] border border-white/[0.06] rounded-2xl">
                 <span className="text-zinc-500 text-[10px] uppercase">Outlet Exhaust</span>
                 <div className="text-base font-bold text-white mt-1">{currentRack.outletTempC}°C</div>
                 <span className="text-[10px] text-zinc-400">Delta T: +{(currentRack.outletTempC - currentRack.inletTempC).toFixed(1)}°C</span>
               </div>
-              <div className="p-3 bg-zinc-900 border border-zinc-800 rounded-xl">
+              <div className="p-3 bg-white/[0.02] border border-white/[0.06] rounded-2xl">
                 <span className="text-zinc-500 text-[10px] uppercase">Current Power</span>
                 <div className="text-base font-bold text-orange-400 mt-1">{currentRack.currentPowerKw} kW</div>
                 <span className="text-[10px] text-zinc-400">Cap: {currentRack.maxPowerKw} kW</span>
               </div>
-              <div className="p-3 bg-zinc-900 border border-zinc-800 rounded-xl">
+              <div className="p-3 bg-white/[0.02] border border-white/[0.06] rounded-2xl">
                 <span className="text-zinc-500 text-[10px] uppercase">Total Weight</span>
                 <div className="text-base font-bold text-white mt-1">{currentRack.weightKg} kg</div>
                 <span className="text-[10px] text-zinc-400">Max 1000 kg</span>
@@ -244,7 +246,7 @@ export const RackManagementView: React.FC<RackManagementViewProps> = ({
               <div className="h-2 bg-zinc-800 rounded-full overflow-hidden">
                 <div
                   className={`h-full ${
-                    currentRack.currentPowerKw > 13 ? 'bg-rose-500' : currentRack.currentPowerKw > 11 ? 'bg-amber-500' : 'bg-emerald-500'
+                    currentRack.currentPowerKw > 13 ? 'bg-rose-500 shadow-[0_0_8px_rgba(244,63,94,0.8)]' : currentRack.currentPowerKw > 11 ? 'bg-amber-500 shadow-[0_0_8px_rgba(245,158,11,0.8)]' : 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)]'
                   }`}
                   style={{ width: `${(currentRack.currentPowerKw / currentRack.maxPowerKw) * 100}%` }}
                 ></div>
@@ -254,8 +256,8 @@ export const RackManagementView: React.FC<RackManagementViewProps> = ({
 
           {/* Inspected Server Detail Drawer */}
           {inspectedServer ? (
-            <div className="bg-[#0a0a0a] border border-orange-500/40 rounded-2xl p-5 space-y-4 shadow-xl">
-              <div className="flex items-center justify-between border-b border-zinc-800 pb-3">
+            <div className="glass-panel border border-orange-500/40 rounded-3xl p-6 space-y-4 shadow-[0_0_30px_rgba(249,115,22,0.15)]">
+              <div className="flex items-center justify-between border-b border-white/[0.08] pb-3">
                 <div>
                   <h4 className="text-sm font-bold font-mono text-white flex items-center gap-2">
                     <Server className="w-4 h-4 text-orange-400" />

@@ -24,6 +24,6 @@ async function buildApp() {
 }
 
 buildApp().catch((err) => {
-  console.error('[Build Error]', err);
+  console.error('[Build Error]', err?.message || err);
   process.exit(1);
 });

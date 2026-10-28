@@ -161,14 +161,14 @@ export const DigitalTwinView: React.FC<DigitalTwinViewProps> = ({ onSelectRack }
   return (
     <div className="space-y-6 animate-fade-in">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-[#0a0a0a] border border-zinc-800 p-5 rounded-2xl shadow-xl">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 glass-panel border border-white/[0.08] p-6 rounded-3xl shadow-[0_10px_35px_rgba(0,0,0,0.5)]">
         <div>
           <div className="flex items-center gap-2">
             <h1 className="text-xl font-bold text-white font-mono flex items-center gap-2">
               <FolderTree className="w-5 h-5 text-orange-400" />
               Logical Digital Twin Studio
             </h1>
-            <span className="text-xs px-2.5 py-0.5 rounded-full bg-orange-500/10 text-orange-400 border border-orange-500/20 font-mono font-bold">
+            <span className="text-xs px-2.5 py-0.5 rounded-full bg-orange-500/10 text-orange-400 border border-orange-500/20 font-mono font-bold shadow-[0_0_10px_rgba(249,115,22,0.2)]">
               Feature 8 (7-Level Hierarchy)
             </span>
           </div>
@@ -178,13 +178,13 @@ export const DigitalTwinView: React.FC<DigitalTwinViewProps> = ({ onSelectRack }
         </div>
 
         {/* View Mode Tabs */}
-        <div className="flex items-center bg-zinc-900 border border-zinc-800 p-1 rounded-xl gap-1 font-mono text-xs">
+        <div className="flex items-center bg-white/[0.03] border border-white/[0.08] p-1.5 rounded-2xl gap-1.5 font-mono text-xs">
           <button
             onClick={() => setActiveTab('tree')}
-            className={`px-3 py-1.5 rounded-lg font-bold transition-all flex items-center gap-1.5 ${
+            className={`px-3.5 py-2 rounded-xl font-bold transition-all flex items-center gap-2 hover:scale-[1.02] active:scale-98 ${
               activeTab === 'tree'
-                ? 'bg-orange-600 text-white shadow-sm'
-                : 'text-zinc-400 hover:text-zinc-200'
+                ? 'bg-gradient-to-r from-orange-500 to-amber-500 text-white shadow-[0_0_15px_rgba(249,115,22,0.4)]'
+                : 'text-zinc-400 hover:text-zinc-200 hover:bg-white/[0.04]'
             }`}
           >
             <FolderTree className="w-3.5 h-3.5" />
@@ -192,10 +192,10 @@ export const DigitalTwinView: React.FC<DigitalTwinViewProps> = ({ onSelectRack }
           </button>
           <button
             onClick={() => setActiveTab('2d_layout')}
-            className={`px-3 py-1.5 rounded-lg font-bold transition-all flex items-center gap-1.5 ${
+            className={`px-3.5 py-2 rounded-xl font-bold transition-all flex items-center gap-2 hover:scale-[1.02] active:scale-98 ${
               activeTab === '2d_layout'
-                ? 'bg-cyan-600 text-white shadow-sm'
-                : 'text-zinc-400 hover:text-zinc-200'
+                ? 'bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-[0_0_15px_rgba(6,182,212,0.4)]'
+                : 'text-zinc-400 hover:text-zinc-200 hover:bg-white/[0.04]'
             }`}
           >
             <Boxes className="w-3.5 h-3.5" />
@@ -203,10 +203,10 @@ export const DigitalTwinView: React.FC<DigitalTwinViewProps> = ({ onSelectRack }
           </button>
           <button
             onClick={() => setActiveTab('relationships')}
-            className={`px-3 py-1.5 rounded-lg font-bold transition-all flex items-center gap-1.5 ${
+            className={`px-3.5 py-2 rounded-xl font-bold transition-all flex items-center gap-2 hover:scale-[1.02] active:scale-98 ${
               activeTab === 'relationships'
-                ? 'bg-purple-600 text-white shadow-sm'
-                : 'text-zinc-400 hover:text-zinc-200'
+                ? 'bg-gradient-to-r from-purple-500 to-indigo-600 text-white shadow-[0_0_15px_rgba(168,85,247,0.4)]'
+                : 'text-zinc-400 hover:text-zinc-200 hover:bg-white/[0.04]'
             }`}
           >
             <Share2 className="w-3.5 h-3.5" />
@@ -218,11 +218,12 @@ export const DigitalTwinView: React.FC<DigitalTwinViewProps> = ({ onSelectRack }
       {/* Main Studio Grid: Left Tree / 2D Floor + Right Inspector Pane */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         {/* Left 7 Columns: Tree or 2D Layout */}
-        <div className="lg:col-span-7 bg-[#0a0a0a] border border-zinc-800 rounded-2xl p-5 space-y-4">
-          <div className="flex items-center justify-between border-b border-zinc-800/80 pb-3">
+        <div className="lg:col-span-7 glass-panel border border-white/[0.08] rounded-3xl p-6 space-y-4 shadow-xl">
+          <div className="flex items-center justify-between border-b border-white/[0.08] pb-3">
             <div className="flex items-center gap-2 text-xs font-mono text-zinc-300">
               <span className="font-bold uppercase tracking-wider text-orange-400">
                 Logical Hierarchy Explorer
+
               </span>
               <span className="text-[10px] text-zinc-500">
                 (7 Strict Structural Tiers)
@@ -391,7 +392,7 @@ export const DigitalTwinView: React.FC<DigitalTwinViewProps> = ({ onSelectRack }
         </div>
 
         {/* Right 5 Columns: Comprehensive Digital Twin State Reflection Pane */}
-        <div className="lg:col-span-5 bg-[#0a0a0a] border-2 border-zinc-800 rounded-2xl p-5 space-y-5 shadow-2xl">
+        <div className="lg:col-span-5 glass-panel border border-white/[0.1] rounded-3xl p-6 space-y-5 shadow-2xl">
           {/* Node Title & Breadcrumbs */}
           <div className="space-y-2 border-b border-zinc-800/80 pb-4">
             <div className="flex items-center justify-between">

@@ -71,16 +71,16 @@ export const TelemetryLiveView: React.FC<TelemetryLiveViewProps> = ({ onOpenCopi
   return (
     <div className="space-y-6">
       {/* Top Header Card */}
-      <div className="p-6 bg-gradient-to-r from-[#0d0d12] via-zinc-900 to-[#121016] border border-zinc-800/90 rounded-2xl shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="glass-panel border border-white/[0.08] p-6 rounded-3xl shadow-[0_10px_35px_rgba(0,0,0,0.5)] flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2.5">
-            <div className="p-2 rounded-xl bg-orange-500/10 text-orange-400 border border-orange-500/30">
+            <div className="p-2.5 rounded-2xl bg-orange-500/10 text-orange-400 border border-orange-500/20 shadow-[0_0_12px_rgba(249,115,22,0.2)]">
               <Activity className="w-5 h-5" />
             </div>
             <div>
               <h1 className="text-xl font-bold text-white tracking-tight flex items-center gap-2">
                 Live Universal Telemetry Stream
-                <span className="flex items-center gap-1.5 text-xs px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 font-mono font-medium border border-emerald-500/30">
+                <span className="flex items-center gap-1.5 text-xs px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 font-mono font-medium border border-emerald-500/30 shadow-[0_0_8px_rgba(52,211,153,0.2)]">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
                   STREAMING (2000ms)
                 </span>
@@ -144,7 +144,7 @@ export const TelemetryLiveView: React.FC<TelemetryLiveViewProps> = ({ onOpenCopi
       {/* Metric KPI Banner */}
       {latestPacket && (
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-          <div className="p-4 bg-zinc-900/80 border border-zinc-800/80 rounded-xl space-y-1">
+          <div className="glass-card p-4 rounded-2xl border border-white/[0.08] space-y-1">
             <div className="flex items-center justify-between">
               <span className="text-[11px] text-zinc-400 font-mono">CPU Utilization</span>
               <Cpu className="w-3.5 h-3.5 text-blue-400" />
@@ -155,7 +155,7 @@ export const TelemetryLiveView: React.FC<TelemetryLiveViewProps> = ({ onOpenCopi
             <div className="text-[10px] text-zinc-400 font-mono">Baseline: 46.5%</div>
           </div>
 
-          <div className="p-4 bg-zinc-900/80 border border-zinc-800/80 rounded-xl space-y-1">
+          <div className="glass-card p-4 rounded-2xl border border-white/[0.08] space-y-1">
             <div className="flex items-center justify-between">
               <span className="text-[11px] text-zinc-400 font-mono">Temperature</span>
               <Thermometer className="w-3.5 h-3.5 text-orange-400" />
@@ -170,7 +170,7 @@ export const TelemetryLiveView: React.FC<TelemetryLiveViewProps> = ({ onOpenCopi
             <div className="text-[10px] text-zinc-400 font-mono">Normal: 36°C – 55°C</div>
           </div>
 
-          <div className="p-4 bg-zinc-900/80 border border-zinc-800/80 rounded-xl space-y-1">
+          <div className="glass-card p-4 rounded-2xl border border-white/[0.08] space-y-1">
             <div className="flex items-center justify-between">
               <span className="text-[11px] text-zinc-400 font-mono">Power Draw</span>
               <Zap className="w-3.5 h-3.5 text-amber-400" />
@@ -181,7 +181,7 @@ export const TelemetryLiveView: React.FC<TelemetryLiveViewProps> = ({ onOpenCopi
             <div className="text-[10px] text-zinc-400 font-mono">Zone Limit: 600W</div>
           </div>
 
-          <div className="p-4 bg-zinc-900/80 border border-zinc-800/80 rounded-xl space-y-1">
+          <div className="glass-card p-4 rounded-2xl border border-white/[0.08] space-y-1">
             <div className="flex items-center justify-between">
               <span className="text-[11px] text-zinc-400 font-mono">Blower Fan RPM</span>
               <Activity className="w-3.5 h-3.5 text-emerald-400" />
@@ -192,7 +192,7 @@ export const TelemetryLiveView: React.FC<TelemetryLiveViewProps> = ({ onOpenCopi
             <div className="text-[10px] text-zinc-400 font-mono">PWW PID Active</div>
           </div>
 
-          <div className="p-4 bg-zinc-900/80 border border-zinc-800/80 rounded-xl space-y-1">
+          <div className="glass-card p-4 rounded-2xl border border-white/[0.08] space-y-1">
             <div className="flex items-center justify-between">
               <span className="text-[11px] text-zinc-400 font-mono">Telemetry Quality</span>
               <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
@@ -203,7 +203,7 @@ export const TelemetryLiveView: React.FC<TelemetryLiveViewProps> = ({ onOpenCopi
             <div className="text-[10px] text-zinc-400 font-mono">Freshness: 100%</div>
           </div>
 
-          <div className="p-4 bg-zinc-900/80 border border-zinc-800/80 rounded-xl space-y-1">
+          <div className="glass-card p-4 rounded-2xl border border-white/[0.08] space-y-1">
             <div className="flex items-center justify-between">
               <span className="text-[11px] text-zinc-400 font-mono">Asset Health</span>
               <AlertTriangle className="w-3.5 h-3.5 text-orange-400" />

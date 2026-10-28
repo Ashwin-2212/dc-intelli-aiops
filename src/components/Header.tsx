@@ -159,31 +159,31 @@ export const Header: React.FC<HeaderProps> = ({
   const lastLoginTime = user?.lastLogin || '12:00 UTC';
 
   return (
-    <header className="h-16 border-b border-zinc-800/80 bg-[#09090c]/95 backdrop-blur-md px-6 flex items-center justify-between z-20 sticky top-0 shrink-0">
+    <header className="h-16 border-b border-white/[0.08] bg-[#08080c]/85 backdrop-blur-xl px-6 flex items-center justify-between z-20 sticky top-0 shrink-0 shadow-[0_4px_30px_rgba(0,0,0,0.6)]">
       {/* Left: Quick Status Metrics */}
-      <div className="flex items-center gap-6">
+      <div className="flex items-center gap-4 sm:gap-6">
         {/* Stream Live Indicator */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-white/[0.03] border border-white/[0.06]">
           <span className="relative flex h-2.5 w-2.5">
             {isRunning && (
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
             )}
             <span
               className={`relative inline-flex rounded-full h-2.5 w-2.5 ${
-                isRunning ? 'bg-emerald-500' : 'bg-amber-500'
+                isRunning ? 'bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]' : 'bg-amber-400 shadow-[0_0_8px_rgba(251,191,36,0.8)]'
               }`}
             ></span>
           </span>
-          <span className="text-xs font-mono font-bold tracking-wider uppercase text-zinc-300">
+          <span className="text-[11px] font-mono font-bold tracking-wider uppercase text-zinc-300">
             {isRunning ? 'Telemetry Live' : 'Simulation Paused'}
           </span>
         </div>
 
         {/* MongoDB Connection Status Pill */}
         <div
-          className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg border text-xs font-mono transition-all ${
+          className={`flex items-center gap-2 px-3 py-1.5 rounded-xl border text-xs font-mono transition-all backdrop-blur-md ${
             dbStatus.connected
-              ? 'bg-emerald-950/40 border-emerald-500/30 text-emerald-300'
+              ? 'bg-emerald-950/30 border-emerald-500/40 text-emerald-300 shadow-[0_0_15px_rgba(16,185,129,0.2)]'
               : 'bg-zinc-900/60 border-zinc-800 text-zinc-400'
           }`}
           title={
@@ -196,7 +196,7 @@ export const Header: React.FC<HeaderProps> = ({
           <span className="flex items-center gap-1.5">
             <span
               className={`w-1.5 h-1.5 rounded-full ${
-                dbStatus.connected ? 'bg-emerald-400 animate-pulse' : 'bg-zinc-500'
+                dbStatus.connected ? 'bg-emerald-400 animate-pulse shadow-[0_0_6px_rgba(52,211,153,1)]' : 'bg-zinc-500'
               }`}
             />
             <span className="text-[10px] font-bold tracking-wider uppercase">
@@ -206,7 +206,7 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
 
         {/* DC Health */}
-        <div className="hidden md:flex items-center gap-2 px-3 py-1 bg-zinc-900/60 border border-zinc-800/60 rounded-lg">
+        <div className="hidden md:flex items-center gap-2.5 px-3 py-1.5 bg-white/[0.03] border border-white/[0.06] rounded-xl">
           <span className="text-[10px] text-zinc-400 uppercase font-mono tracking-wider">Health</span>
           <span
             className={`text-xs font-bold font-mono ${
@@ -219,20 +219,20 @@ export const Header: React.FC<HeaderProps> = ({
           >
             {facility.overallHealth}%
           </span>
-          <div className="flex gap-0.5">
-            <div className={`w-1 h-3 rounded-xs ${facility.overallHealth > 50 ? 'bg-emerald-500' : 'bg-zinc-700'}`} />
-            <div className={`w-1 h-3 rounded-xs ${facility.overallHealth > 75 ? 'bg-emerald-500' : 'bg-zinc-700'}`} />
-            <div className={`w-1 h-3 rounded-xs ${facility.overallHealth > 85 ? 'bg-emerald-500' : 'bg-zinc-700'}`} />
+          <div className="flex gap-1 items-center">
+            <div className={`w-1 h-3 rounded-full ${facility.overallHealth > 50 ? 'bg-emerald-400 shadow-[0_0_6px_rgba(52,211,153,0.5)]' : 'bg-zinc-700'}`} />
+            <div className={`w-1 h-3 rounded-full ${facility.overallHealth > 75 ? 'bg-emerald-400 shadow-[0_0_6px_rgba(52,211,153,0.5)]' : 'bg-zinc-700'}`} />
+            <div className={`w-1 h-3 rounded-full ${facility.overallHealth > 85 ? 'bg-emerald-400 shadow-[0_0_6px_rgba(52,211,153,0.5)]' : 'bg-zinc-700'}`} />
           </div>
         </div>
 
         {/* PUE Quick */}
-        <div className="hidden lg:flex items-center gap-2 px-3 py-1 bg-zinc-900/60 border border-zinc-800/60 rounded-lg">
+        <div className="hidden lg:flex items-center gap-2 px-3 py-1.5 bg-white/[0.03] border border-white/[0.06] rounded-xl">
           <span className="text-[10px] text-zinc-400 uppercase font-mono tracking-wider">PUE</span>
-          <span className="text-xs font-bold font-mono text-zinc-100">{facility.pue.toFixed(2)}</span>
+          <span className="text-xs font-bold font-mono text-cyan-300">{facility.pue.toFixed(2)}</span>
           <span
-            className={`text-[9px] px-1 py-0.2 rounded font-mono font-bold uppercase ${
-              facility.pue <= 1.4 ? 'text-emerald-400' : facility.pue <= 1.55 ? 'text-amber-400' : 'text-rose-400'
+            className={`text-[9px] px-1.5 py-0.5 rounded-md font-mono font-bold uppercase ${
+              facility.pue <= 1.4 ? 'bg-emerald-500/10 text-emerald-300 border border-emerald-500/20' : facility.pue <= 1.55 ? 'bg-amber-500/10 text-amber-300 border border-amber-500/20' : 'bg-rose-500/10 text-rose-300 border border-rose-500/20'
             }`}
           >
             {facility.pue <= 1.4 ? 'Optimal' : facility.pue <= 1.55 ? 'Nominal' : 'High'}
@@ -242,7 +242,7 @@ export const Header: React.FC<HeaderProps> = ({
         {/* Live Fault Scenario Badge */}
         <button
           onClick={onOpenSimulationModal}
-          className={`flex items-center gap-2 px-3 py-1 rounded-full border text-xs font-mono font-medium transition-all hover:opacity-90 ${scenarioInfo.color}`}
+          className={`flex items-center gap-2 px-3 py-1.5 rounded-xl border text-xs font-mono font-medium transition-all hover:scale-105 active:scale-95 ${scenarioInfo.color}`}
           title="Click to change simulation fault scenario"
         >
           <span className="w-1.5 h-1.5 rounded-full bg-current animate-ping" />
@@ -253,14 +253,14 @@ export const Header: React.FC<HeaderProps> = ({
 
       {/* Center: Search */}
       <div className="flex-1 max-w-md mx-6 hidden xl:block">
-        <form onSubmit={handleSearchSubmit} className="relative">
-          <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" />
+        <form onSubmit={handleSearchSubmit} className="relative group">
+          <Search className="w-3.5 h-3.5 absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400 group-focus-within:text-purple-400 transition-colors" />
           <input
             type="text"
             placeholder="Search racks, cooling units, incidents, or ask copilot..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-zinc-900/80 border border-zinc-800 rounded-lg pl-9 pr-4 py-1.5 text-xs text-zinc-200 placeholder-zinc-400 focus:outline-hidden focus:border-purple-500 transition-colors font-sans"
+            className="w-full bg-zinc-900/60 border border-white/[0.08] hover:border-white/[0.15] rounded-xl pl-9 pr-4 py-2 text-xs text-zinc-200 placeholder-zinc-500 focus:outline-none focus:border-purple-500/70 focus:bg-zinc-900/90 focus:shadow-[0_0_15px_rgba(168,85,247,0.2)] transition-all font-sans"
           />
         </form>
       </div>
@@ -270,10 +270,10 @@ export const Header: React.FC<HeaderProps> = ({
         {/* Simulation Pause/Play Toggle */}
         <button
           onClick={() => engine.toggleRunning()}
-          className={`px-3 py-1.5 rounded-lg border text-xs font-mono font-medium transition-colors flex items-center gap-1.5 ${
+          className={`px-3 py-1.5 rounded-xl border text-xs font-mono font-medium transition-all flex items-center gap-1.5 hover:scale-105 active:scale-95 ${
             isRunning
-              ? 'bg-zinc-900 border-zinc-800 text-zinc-300 hover:bg-zinc-800'
-              : 'bg-amber-500/10 border-amber-500/30 text-amber-300'
+              ? 'bg-zinc-900/70 border-white/[0.08] text-zinc-300 hover:bg-zinc-800'
+              : 'bg-amber-500/15 border-amber-500/40 text-amber-300 shadow-[0_0_12px_rgba(245,158,11,0.2)]'
           }`}
           title={isRunning ? 'Pause real-time telemetry stream' : 'Resume real-time telemetry stream'}
         >
@@ -284,10 +284,10 @@ export const Header: React.FC<HeaderProps> = ({
         {/* AI Anomalies Pill Button */}
         <button
           onClick={() => setActiveView && setActiveView('anomalies')}
-          className={`px-3 py-1.5 rounded-lg border text-xs font-bold font-mono uppercase tracking-wider flex items-center gap-1.5 transition-all ${
+          className={`px-3 py-1.5 rounded-xl border text-xs font-bold font-mono uppercase tracking-wider flex items-center gap-1.5 transition-all hover:scale-105 active:scale-95 ${
             activeAnomaliesCount > 0
-              ? 'bg-rose-500/15 border-rose-500/40 text-rose-300 hover:bg-rose-500/25'
-              : 'bg-zinc-900 border-zinc-800 text-zinc-400'
+              ? 'bg-rose-500/15 border-rose-500/50 text-rose-300 hover:bg-rose-500/25 shadow-[0_0_15px_rgba(244,63,94,0.25)] animate-pulse'
+              : 'bg-zinc-900/70 border-white/[0.08] text-zinc-400'
           }`}
         >
           <AlertTriangle className="w-3.5 h-3.5 text-rose-400" />
@@ -298,10 +298,10 @@ export const Header: React.FC<HeaderProps> = ({
         {/* Gemini AIOps Copilot Trigger */}
         <button
           onClick={onOpenCopilot}
-          className="px-3.5 py-1.5 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-lg text-xs font-semibold flex items-center gap-1.5 shadow-sm hover:from-purple-500 hover:to-indigo-500 transition-all font-sans"
+          className="px-3.5 py-1.5 bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-600 text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-[0_0_20px_rgba(147,51,234,0.35)] hover:shadow-[0_0_30px_rgba(147,51,234,0.55)] transition-all transform hover:scale-[1.03] active:scale-95 border border-purple-400/30 font-sans"
         >
-          <Sparkles className="w-3.5 h-3.5 text-amber-300" />
-          <span className="hidden sm:inline">AIOps Copilot</span>
+          <Sparkles className="w-3.5 h-3.5 text-amber-300 animate-spin" style={{ animationDuration: '4s' }} />
+          <span className="hidden sm:inline font-bold">AIOps Copilot</span>
         </button>
 
         {/* Enterprise Authenticated User Profile Badge & Dropdown */}
@@ -309,10 +309,10 @@ export const Header: React.FC<HeaderProps> = ({
           <button
             onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
             aria-expanded={isProfileMenuOpen}
-            className="flex items-center gap-2.5 p-1.5 pr-2.5 bg-zinc-900/90 hover:bg-zinc-800/90 border border-zinc-800 rounded-xl transition-all select-none group focus:outline-none focus:ring-2 focus:ring-purple-500"
+            className="flex items-center gap-2.5 p-1.5 pr-2.5 bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.08] hover:border-white/[0.15] rounded-xl transition-all select-none group focus:outline-none focus:ring-2 focus:ring-purple-500/50 shadow-sm"
           >
             {/* User Avatar */}
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-600 to-indigo-700 flex items-center justify-center text-white text-xs font-bold shadow-xs">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-600 to-indigo-700 flex items-center justify-center text-white text-xs font-bold shadow-md shadow-purple-950/60 ring-1 ring-white/20">
               {user?.avatar ? user.avatar : effectiveRole === 'ADMIN' ? '👑' : userName.slice(0, 2).toUpperCase()}
             </div>
 
@@ -333,10 +333,10 @@ export const Header: React.FC<HeaderProps> = ({
 
           {/* Profile Dropdown Menu */}
           {isProfileMenuOpen && (
-            <div className="absolute right-0 mt-2 w-72 bg-[#0c0c12] border border-zinc-800 rounded-2xl shadow-2xl p-4 z-50 animate-in fade-in slide-in-from-top-2">
+            <div className="absolute right-0 mt-2 w-72 bg-[#0c0c16]/95 backdrop-blur-2xl border border-white/[0.1] rounded-2xl shadow-2xl p-4 z-50 animate-in fade-in slide-in-from-top-2 shadow-[0_20px_50px_rgba(0,0,0,0.85)] ring-1 ring-white/[0.08]">
               {/* Profile Top Section */}
-              <div className="flex items-start gap-3 pb-3 border-b border-zinc-800/80">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-600 to-indigo-700 flex items-center justify-center text-white text-base font-bold shadow-md shrink-0">
+              <div className="flex items-start gap-3 pb-3 border-b border-white/[0.08]">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-600 to-indigo-700 flex items-center justify-center text-white text-base font-bold shadow-lg shadow-purple-950/60 ring-1 ring-white/20 shrink-0">
                   {user?.avatar || '👑'}
                 </div>
                 <div className="min-w-0">
