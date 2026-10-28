@@ -1,5 +1,5 @@
 import { Router, Request, Response } from 'express';
-import { User } from '../models/User';
+import { User, UserRoleType } from '../models/User';
 import { authenticateToken, generateToken, requireRoles } from '../middleware/auth';
 import { recordAudit } from '../middleware/audit';
 
@@ -106,11 +106,17 @@ authRouter.post('/login', async (req: Request, res: Response) => {
     user.lastLogin = new Date();
     await user.save();
 
+    // Normalize role for client navigation (DATA_CENTER_MANAGER -> MANAGER)
+    let clientRole: UserRoleType = user.role;
+    if (user.role === 'DATA_CENTER_MANAGER') clientRole = 'MANAGER';
+    else if (user.role === 'OPERATOR') clientRole = 'ENGINEER';
+    else if (user.role === 'VIEWER') clientRole = 'ANALYST';
+
     // Generate signed JWT token
     const token = generateToken({
       id: user.id,
       email: user.email,
-      role: user.role,
+      role: clientRole,
       name: user.name,
     });
 
@@ -123,7 +129,8 @@ authRouter.post('/login', async (req: Request, res: Response) => {
         id: user.id,
         name: user.name,
         email: user.email,
-        role: user.role,
+        role: clientRole,
+        originalRole: user.role,
         title: user.title,
         department: user.department,
         avatar: user.avatar,
@@ -156,13 +163,19 @@ authRouter.get('/me', authenticateToken, async (req: Request, res: Response) => 
     if (!user) {
       return res.status(404).json({ authenticated: false, message: 'User record not found.' });
     }
+    let clientRole: UserRoleType = user.role;
+    if (user.role === 'DATA_CENTER_MANAGER') clientRole = 'MANAGER';
+    else if (user.role === 'OPERATOR') clientRole = 'ENGINEER';
+    else if (user.role === 'VIEWER') clientRole = 'ANALYST';
+
     res.json({
       authenticated: true,
       user: {
         id: user.id,
         name: user.name,
         email: user.email,
-        role: user.role,
+        role: clientRole,
+        originalRole: user.role,
         title: user.title,
         department: user.department,
         avatar: user.avatar,

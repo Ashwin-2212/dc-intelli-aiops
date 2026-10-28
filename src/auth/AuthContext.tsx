@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react';
 import { AuthUser, LoginCredentials, Permission, RoleType } from './types';
 import { DEMO_ACCOUNTS } from './authConfig';
-import { hasPermission as checkPermission, hasRole as checkRole, canRoleAccessView, getDefaultLandingRoute, getDefaultLandingView } from './permissions';
+import { hasPermission as checkPermission, hasRole as checkRole, canRoleAccessView, getDefaultLandingRoute, getDefaultLandingView, normalizeRole } from './permissions';
 
 interface AuthContextType {
   user: AuthUser | null;
@@ -42,6 +42,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
       if (storedUser && storedToken) {
         const parsedUser = JSON.parse(storedUser) as AuthUser;
+        parsedUser.role = normalizeRole(parsedUser.role);
         setUser(parsedUser);
         setToken(storedToken);
       }
@@ -70,6 +71,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       if (res.ok) {
         const data = await res.json();
         const authenticatedUser = data.user;
+        authenticatedUser.role = normalizeRole(authenticatedUser.role);
         const authToken = data.token || `jwt_${Date.now()}_${role}`;
 
         authenticatedUser.lastLogin = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + ' UTC';

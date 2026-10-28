@@ -133,11 +133,25 @@ export const ROUTE_VIEW_MAP: Record<string, string> = {
 };
 
 /**
+ * Normalizes backend database role names to client privilege tiers
+ */
+export function normalizeRole(role: RoleType | string | undefined | null): RoleType {
+  if (!role) return 'ANALYST';
+  const r = String(role).toUpperCase();
+  if (r === 'DATA_CENTER_MANAGER' || r === 'MANAGER') return 'MANAGER';
+  if (r === 'OPERATOR' || r === 'ENGINEER') return 'ENGINEER';
+  if (r === 'VIEWER' || r === 'ANALYST') return 'ANALYST';
+  if (r === 'ADMIN') return 'ADMIN';
+  return 'ANALYST';
+}
+
+/**
  * Returns whether a role possesses a given permission
  */
-export function hasPermission(role: RoleType | undefined | null, permission: Permission): boolean {
+export function hasPermission(role: RoleType | string | undefined | null, permission: Permission): boolean {
   if (!role) return false;
-  const permissions = ROLE_PERMISSIONS[role];
+  const normalized = normalizeRole(role);
+  const permissions = ROLE_PERMISSIONS[normalized];
   if (!permissions) return false;
   return permissions.includes(permission);
 }
@@ -145,25 +159,27 @@ export function hasPermission(role: RoleType | undefined | null, permission: Per
 /**
  * Checks if user has a required specific role or higher authority
  */
-export function hasRole(currentRole: RoleType | undefined | null, requiredRoles: RoleType | RoleType[]): boolean {
+export function hasRole(currentRole: RoleType | string | undefined | null, requiredRoles: (RoleType | string) | (RoleType | string)[]): boolean {
   if (!currentRole) return false;
+  const normalizedCurrent = normalizeRole(currentRole);
   if (Array.isArray(requiredRoles)) {
-    return requiredRoles.includes(currentRole);
+    return requiredRoles.map((r) => normalizeRole(r)).includes(normalizedCurrent);
   }
-  return currentRole === requiredRoles;
+  return normalizedCurrent === normalizeRole(requiredRoles);
 }
 
 /**
  * Checks whether a given role is allowed to view an application view
  */
-export function canRoleAccessView(role: RoleType | undefined | null, viewId: string): boolean {
+export function canRoleAccessView(role: RoleType | string | undefined | null, viewId: string): boolean {
   if (!role) return false;
-  if (role === 'ADMIN') return true;
+  const normalized = normalizeRole(role);
+  if (normalized === 'ADMIN') return true;
 
   const requiredPermission = VIEW_PERMISSION_MAP[viewId];
   if (!requiredPermission) {
     // If no explicit permission restriction, default to dashboard permission
-    return hasPermission(role, 'dashboard');
+    return hasPermission(normalized, 'dashboard');
   }
 
   // Role specific overrides for specialized views
@@ -172,25 +188,26 @@ export function canRoleAccessView(role: RoleType | undefined | null, viewId: str
   }
 
   if (viewId === 'manager-cockpit') {
-    return role === 'MANAGER';
+    return normalized === 'MANAGER';
   }
 
   if (viewId === 'engineer-diag' || viewId === 'operator-noc') {
-    return role === 'ENGINEER';
+    return normalized === 'ENGINEER';
   }
 
   if (viewId === 'root-cause') {
-    return role === 'ANALYST';
+    return normalized === 'ANALYST';
   }
 
-  return hasPermission(role, requiredPermission);
+  return hasPermission(normalized, requiredPermission);
 }
 
 /**
  * Gets the default landing view for a role
  */
-export function getDefaultLandingView(role: RoleType): string {
-  switch (role) {
+export function getDefaultLandingView(role: RoleType | string): string {
+  const normalized = normalizeRole(role);
+  switch (normalized) {
     case 'ADMIN':
       return 'super-admin';
     case 'MANAGER':
@@ -207,8 +224,9 @@ export function getDefaultLandingView(role: RoleType): string {
 /**
  * Gets the default landing route path for a role
  */
-export function getDefaultLandingRoute(role: RoleType): string {
-  switch (role) {
+export function getDefaultLandingRoute(role: RoleType | string): string {
+  const normalized = normalizeRole(role);
+  switch (normalized) {
     case 'ADMIN':
       return '/admin';
     case 'MANAGER':

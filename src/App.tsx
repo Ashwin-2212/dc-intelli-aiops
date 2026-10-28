@@ -78,10 +78,11 @@ function MainAppContent() {
     if (!isAuthenticated || !role) return;
 
     // Synchronize legacy currentRole state with auth role
-    if (role === 'ADMIN') setCurrentRole('super_admin');
-    else if (role === 'MANAGER') setCurrentRole('manager');
-    else if (role === 'ENGINEER') setCurrentRole('engineer');
-    else if (role === 'ANALYST') setCurrentRole('viewer');
+    const r = String(role).toUpperCase();
+    if (r === 'ADMIN') setCurrentRole('super_admin');
+    else if (r === 'MANAGER' || r === 'DATA_CENTER_MANAGER') setCurrentRole('manager');
+    else if (r === 'ENGINEER' || r === 'OPERATOR') setCurrentRole('engineer');
+    else if (r === 'ANALYST' || r === 'VIEWER') setCurrentRole('viewer');
 
     const path = window.location.pathname;
 
