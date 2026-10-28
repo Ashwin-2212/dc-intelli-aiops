@@ -65,86 +65,95 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
   const rawSections = [
     {
-      title: 'Role Command Centers',
+      title: 'COMMAND CENTER',
       items: [
         {
-          id: 'super-admin',
-          label: 'Super Admin HQ',
+          id: 'overview',
+          label: 'Executive Cockpit',
           icon: Crown,
-          roles: ['ADMIN'],
           color: 'text-purple-400',
         },
+      ],
+    },
+    {
+      title: 'INFRASTRUCTURE & DIGITAL TWIN',
+      items: [
         {
-          id: 'manager-cockpit',
-          label: 'Manager Cockpit',
-          icon: Briefcase,
-          roles: ['ADMIN', 'MANAGER'],
+          id: 'digital-twin',
+          label: 'Visual Digital Twin',
+          icon: Layers,
+          color: 'text-cyan-400',
+        },
+        {
+          id: 'racks',
+          label: 'Rack Matrix (42U)',
+          icon: Boxes,
           color: 'text-blue-400',
         },
         {
-          id: 'engineer-diag',
-          label: 'Engineer Diagnostics',
-          icon: Wrench,
-          roles: ['ADMIN', 'ENGINEER'],
-          color: 'text-emerald-400',
+          id: 'cooling',
+          label: 'Cooling Intelligence',
+          icon: Thermometer,
+          color: 'text-sky-400',
         },
         {
-          id: 'operator-noc',
-          label: 'Operator NOC Live',
-          icon: Monitor,
-          roles: ['ADMIN', 'ENGINEER'],
+          id: 'power',
+          label: 'Power & Electrical (PUE)',
+          icon: Zap,
           color: 'text-amber-400',
         },
       ],
     },
     {
-      title: 'Telemetry Intelligence Engine',
+      title: 'AI & PREDICTIVE INTELLIGENCE',
       items: [
-        { id: 'telemetry-live', label: 'Live Telemetry Stream', icon: Activity, color: 'text-orange-400' },
-        { id: 'telemetry-sources', label: 'Sources & Sensor Trust', icon: Radio, color: 'text-purple-400' },
-        { id: 'telemetry-quality', label: 'Data Quality & Dual Health', icon: CheckCircle2, color: 'text-emerald-400' },
-        { id: 'telemetry-explorer', label: 'Telemetry Data Explorer', icon: Search, color: 'text-blue-400', roles: ['ADMIN', 'MANAGER', 'ANALYST'] },
-        { id: 'telemetry-replay', label: 'Incident Replay & What-If', icon: History, color: 'text-amber-400', roles: ['ADMIN', 'MANAGER', 'ANALYST'] },
-        { id: 'telemetry-closed-loop', label: 'Decisions & Closed Loop', icon: Award, color: 'text-emerald-400', roles: ['ADMIN', 'ANALYST'] },
-        { id: 'telemetry-platform', label: 'Platform Observability', icon: Sparkles, color: 'text-purple-400', roles: ['ADMIN', 'ANALYST'] },
+        {
+          id: 'telemetry-live',
+          label: 'Live Telemetry Stream',
+          icon: Activity,
+          color: 'text-orange-400',
+        },
+        {
+          id: 'anomalies',
+          label: 'AI Anomaly Radar',
+          icon: AlertTriangle,
+          color: 'text-rose-400',
+        },
+        {
+          id: 'predictive',
+          label: 'Predictive Failure',
+          icon: Flame,
+          color: 'text-red-400',
+        },
+        {
+          id: 'root-cause',
+          label: 'Neural Root Cause (RCA)',
+          icon: GitBranch,
+          color: 'text-purple-400',
+        },
+        {
+          id: 'what-if',
+          label: 'What-If Capacity Sandbox',
+          icon: SlidersHorizontal,
+          color: 'text-emerald-400',
+        },
       ],
     },
     {
-      title: 'Observability & Twin',
+      title: 'GOVERNANCE & ACTION',
       items: [
-        { id: 'overview', label: 'Live Overview', icon: Activity },
-        { id: 'collectors', label: 'Edge Collectors (Redfish/SNMP)', icon: Radio, roles: ['ADMIN', 'ENGINEER'] },
-        { id: 'digital-twin', label: 'Visual Digital Twin', icon: Layers, roles: ['ADMIN', 'MANAGER', 'ENGINEER'] },
-        { id: 'dependencies', label: 'Dependency Graph', icon: GitBranch, color: 'text-orange-400', roles: ['ADMIN', 'MANAGER', 'ANALYST'] },
-        { id: 'racks', label: 'Rack Matrix (42U)', icon: Boxes, roles: ['ADMIN', 'MANAGER', 'ENGINEER'] },
-        { id: 'servers', label: 'Server Fleet', icon: Server, roles: ['ADMIN', 'MANAGER', 'ENGINEER'] },
-        { id: 'cooling', label: 'Cooling Intelligence', icon: Thermometer, roles: ['ADMIN', 'MANAGER', 'ENGINEER', 'ANALYST'] },
-        { id: 'power', label: 'Power & PUE', icon: Zap, roles: ['ADMIN', 'MANAGER', 'ENGINEER', 'ANALYST'] },
-        { id: 'ups', label: 'UPS Battery Banks', icon: BatteryCharging, roles: ['ADMIN', 'MANAGER', 'ENGINEER'] },
-      ],
-    },
-    {
-      title: 'Intelligence & AIOps',
-      items: [
-        { id: 'timeline', label: 'Incident Timeline', icon: History, color: 'text-orange-400', roles: ['ADMIN', 'MANAGER', 'ENGINEER', 'ANALYST'] },
-        { id: 'health-sla', label: 'Health Score & SLO', icon: Activity, color: 'text-emerald-400', roles: ['ADMIN', 'MANAGER', 'ANALYST'] },
-        { id: 'alert-correlation', label: 'Multi-Metric Correlation', icon: GitMerge, color: 'text-orange-400', roles: ['ADMIN', 'MANAGER', 'ENGINEER', 'ANALYST'] },
-        { id: 'anomalies', label: 'AI Anomaly Radar', icon: AlertTriangle, roles: ['ADMIN', 'MANAGER', 'ENGINEER', 'ANALYST'] },
-        { id: 'predictive', label: 'Predictive Failure', icon: Flame, roles: ['ADMIN', 'MANAGER', 'ANALYST'] },
-        { id: 'capacity', label: 'Capacity Runway', icon: TrendingUp, roles: ['ADMIN', 'MANAGER', 'ANALYST'] },
-        { id: 'what-if', label: 'What-If Sandbox', icon: SlidersHorizontal, roles: ['ADMIN', 'MANAGER', 'ANALYST'] },
-        { id: 'root-cause', label: 'Root Cause Graph', icon: GitBranch, roles: ['ADMIN', 'ANALYST'] },
-        { id: 'energy-optimizer', label: 'Energy Optimizer', icon: Zap, roles: ['ADMIN', 'MANAGER', 'ANALYST'] },
-      ],
-    },
-    {
-      title: 'Governance, Assets & Security',
-      items: [
-        { id: 'assets-drift', label: 'Assets & Config Drift', icon: Boxes, color: 'text-amber-400', roles: ['ADMIN', 'MANAGER', 'ANALYST'] },
-        { id: 'incidents', label: 'Work Orders & SLA', icon: Wrench, roles: ['ADMIN', 'MANAGER', 'ENGINEER'] },
-        { id: 'reports', label: 'Audit Reports & PDF', icon: FileText, roles: ['ADMIN', 'MANAGER', 'ANALYST'] },
-        { id: 'security', label: 'RBAC Security & Policy', icon: ShieldCheck, roles: ['ADMIN'] },
-        { id: 'settings', label: 'Platform Settings', icon: Settings, roles: ['ADMIN'] },
+        {
+          id: 'incidents',
+          label: 'Maintenance & Work Orders',
+          icon: Wrench,
+          color: 'text-amber-400',
+        },
+        {
+          id: 'reports',
+          label: 'Audit & PDF Compliance',
+          icon: FileText,
+          color: 'text-blue-400',
+        },
       ],
     },
   ];
@@ -153,8 +162,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
   const filteredSections = rawSections
     .map((section) => {
       const allowedItems = section.items.filter((item) => {
-        // If specific roles array is defined, check membership
-        if (item.roles && !item.roles.includes(effectiveRole)) {
+        const itemWithRoles = item as { id: string; label: string; icon: any; color?: string; roles?: string[] };
+        if (itemWithRoles.roles && !itemWithRoles.roles.includes(effectiveRole)) {
           return false;
         }
         return canRoleAccessView(effectiveRole, item.id);

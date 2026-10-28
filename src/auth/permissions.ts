@@ -33,6 +33,9 @@ export const ROLE_PERMISSIONS: Record<RoleType, Permission[]> = {
     'capacity',
     'reports',
     'energy',
+    'anomalies',
+    'rca',
+    'work-orders',
   ],
   ENGINEER: [
     'dashboard',
@@ -43,10 +46,20 @@ export const ROLE_PERMISSIONS: Record<RoleType, Permission[]> = {
     'power',
     'incidents',
     'work-orders',
+    'anomalies',
+    'predictions',
+    'rca',
+    'capacity',
+    'reports',
+    'ai',
   ],
   ANALYST: [
     'dashboard',
     'telemetry',
+    'servers',
+    'racks',
+    'cooling',
+    'power',
     'anomalies',
     'ai',
     'predictions',
@@ -54,6 +67,8 @@ export const ROLE_PERMISSIONS: Record<RoleType, Permission[]> = {
     'capacity',
     'energy',
     'reports',
+    'incidents',
+    'work-orders',
   ],
 };
 
@@ -196,7 +211,7 @@ export function canRoleAccessView(role: RoleType | string | undefined | null, vi
   }
 
   if (viewId === 'root-cause') {
-    return normalized === 'ANALYST';
+    return true;
   }
 
   return hasPermission(normalized, requiredPermission);
